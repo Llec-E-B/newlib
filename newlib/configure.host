@@ -534,6 +534,12 @@ case "${host}" in
 	unix_dir=unix
 	;;
   spu-*-*)
+	case ${host} in
+	  *-celloslv2-elf*)
+		newlib_cflags="${newlib_cflags} -DNON___LINUX_SYSCALL -DGENERIC___SEND_TO_PPE"
+		;;
+	  *)
+		;;
 	default_newlib_io_long_long="yes"
 	default_newlib_atexit_dynamic_alloc="no"
 	;;

@@ -1,5 +1,6 @@
 /*
 (C) Copyright IBM Corp. 2008
+(C) Copyright Gustavo Ramos Carvalho. 2026
 
 All rights reserved.
 
@@ -27,7 +28,10 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-Author: Ken Werner <ken.werner@de.ibm.com>
+Authors:
+  Ken Werner <ken.werner@de.ibm.com> - original implementation
+  Gustavo Ramos Carvalho <gc5142387@gmail.com> - non __linux_syscall
+
 */
 
 #ifndef __LINUX_SYSCALLS_H
@@ -296,6 +300,19 @@ struct spu_syscall_block
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+#ifdef NON___LINUX_SYSCALL
+
+typedef int (* __linux_syscall_implementation_t)(struct spu_syscall_block *);
+
+
+
+extern __linux_syscall_implementation_t __linux_syscall_implementation;
+
+#endif
+
+
 
 /* Issues a Linux system call.  */
 int __linux_syscall (struct spu_syscall_block *s);
